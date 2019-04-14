@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class string{
+class String{
 public:
 	String()
 	:_str(new char[1])
@@ -28,7 +28,7 @@ public:
 	}
 	
 	//全缺省构造函数，缺省值为”“
-	String(char* str = "")
+	String(char* str = " ")
 	:_str(new char[strlen(str) + 1])
 	{
 		strcpy(_str,str);
@@ -337,7 +337,7 @@ char* strstr(char* dest, char* substr)
 
 String operator+(const String& s1, const String& s2){
 	return new String(Append(s1._str, s2._str));
-
+}
 
 String operator+(const String s1, const char* s2){
 	String s3(s1);
@@ -361,9 +361,5 @@ void TestString(){
 	s.Append("xxxxxx");
 }
 
-int main()
-{
-    return 0;
-}
 
 
