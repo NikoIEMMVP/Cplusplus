@@ -26,7 +26,7 @@ using namespace std;
 
 class Person {
 public:
-    Person (const char* name = "Wyhx")
+    Person (const char* name = "Wyh")
     :_name(name)
     {
         cout << "Person()" << endl;
@@ -107,10 +107,8 @@ int main()
 {
     Student s;
 
-    Student cpy = s;
+    Student cpy;
+    cpy = s;
 
-    //Student s1;
-
-    //s1 = s;
     return 0 ;
 }
