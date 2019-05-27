@@ -56,7 +56,7 @@ public:
         }
 
         newNode->_pParent = parent;
-
+        cur = newNode;
         //调整，保证平衡
         while(parent){
             //更新当前的平衡因子
@@ -74,8 +74,17 @@ public:
             else if(parent->_bf == 2 || parent->_bf == -2){
                 if(parent->_bf == 2 && parent->_pRight->_bf == 1){
                     RotateL(parent);
-                }else if(....){
+                }else if(parent->_bf == -2 && cur->_bf == -1){
+                    RotateR(parent);
 
+                }else if(parent-> _bf == -2 && cur->_bf == 1){
+                    // 左右双旋
+                    RotateL(cur);
+                    RotateR(parent);
+                }else if(parent->_bf == 2 && cur->bf == -1){
+                    // 右左双旋
+                    RotateR(cur);
+                    RotateL(parent);
                 }
             }
 
@@ -105,7 +114,7 @@ public:
             pNode gParent = parent->_pParent;
             //判断parent之前是parent->_pParent的那一边的节点
             //把sunR链接到对应的边
-            if(gParent->_pLeft = parent)
+            if(gParent->_pLeft == parent)
                 gParent->_pLeft = subR;
             else 
                 gParent->_pRight = subR;
@@ -124,6 +133,42 @@ public:
 
     }
     
+
+    void RotateR(pNode parent){
+        pNode subL = parent ->_pLeft;
+        pNode subLR = subL -> _pRight;
+        // 1. 单向链接 subL， subLR
+
+        subL -> _pRight = parent;
+        parent->_pLeft = subLR;
+
+        // 2 . 向上链接 subLR, parent
+        if(subLR){
+            subLR->_pParent = parent;
+        }
+
+        // 3. 双向链接subL 与 parent -> parent
+        if(parent != _root){
+            pNode gParent = parent ->_pParent;
+            if(gParent->_pLeft == parent)
+                gParent->_pLeft = subL;
+            else
+            {
+                gParent->_pRight = subL;
+            }
+            subL->_pParent = gParent;
+            
+        }
+        else
+        {
+            subL->_pParent = nullptr;
+            _root = subL;
+        }
+
+        // 4. 向上链接 parent，subL
+        parent->_pParent = subL;
+
+    }
 
 private:
     pNode _root = nullptr;
